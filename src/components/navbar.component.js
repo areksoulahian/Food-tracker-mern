@@ -13,7 +13,7 @@ export default class Navbar extends Component {
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
                 <Link to="/foodlist" className="nav-link">
-                  Food Tracker Log
+                  Home
                 </Link>
               </li>
               <li className="navbar-item">
