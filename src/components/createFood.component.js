@@ -96,7 +96,7 @@ export default class CreateFood extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <h3>Create New Food</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">

@@ -73,17 +73,17 @@ export default class foodList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="">
         <h3>Food Log</h3>
-        <table className="table">
+        <table className="table table-dark">
           <thead className="thead-light">
             <tr>
-              <th>Username</th>
-              <th>Food</th>
-              <th>Description</th>
-              <th>Calories</th>
-              <th>Date</th>
-              <th>Actions</th>
+              <th scope="col">Username</th>
+              <th scope="col">Food</th>
+              <th scope="col">Description</th>
+              <th scope="col">Calories</th>
+              <th scope="col">Date</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>{this.foodList()}</tbody>

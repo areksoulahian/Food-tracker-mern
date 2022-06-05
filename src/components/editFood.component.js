@@ -97,7 +97,7 @@ export default class EditFood extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <h3>Edit Food Log</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
