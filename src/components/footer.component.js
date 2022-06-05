@@ -9,14 +9,14 @@ export default class Footer extends Component {
           This is a full-stack MERN application by Arek
         </p>
 
-        <style>
+        {/* <style>
           {`
           footer
           {
 
             }
         `}
-        </style>
+        </style> */}
       </footer>
     );
   }
