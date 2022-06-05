@@ -20,6 +20,7 @@ export default class CreateFood extends Component {
     this.state = {
       username: "",
       foodName: "",
+      // description: "",
       calories: 0,
       date: new Date(),
       users: [],
@@ -89,7 +90,7 @@ export default class CreateFood extends Component {
     this.setState({
       username: "",
       foodName: "",
-      description: "",
+      // description: "",
       calories: "",
     });
   };
@@ -128,7 +129,7 @@ export default class CreateFood extends Component {
             />
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Description: </label>
             <input
               type="text"
@@ -136,7 +137,7 @@ export default class CreateFood extends Component {
               value={this.state.description}
               onChange={this.onChangeDescription}
             />
-          </div>
+          </div> */}
 
           <div className="form-group">
             <label>Calories: </label>

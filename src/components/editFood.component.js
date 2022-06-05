@@ -118,7 +118,7 @@ export default class EditFood extends Component {
               })}
             </select>
           </div>
-
+          {/* 
           <div className="form-group">
             <label>Description: </label>
             <input
@@ -127,7 +127,7 @@ export default class EditFood extends Component {
               value={this.state.description}
               onChange={this.onChangeDescription}
             />
-          </div>
+          </div> */}
 
           <div className="form-group">
             <label>Calories: </label>

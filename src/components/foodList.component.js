@@ -10,7 +10,7 @@ const Food = (props) => (
   <tr>
     <td>{props.food.username}</td>
     <td>{props.food.foodName}</td>
-    <td>{props.food.description}</td>
+    {/* <td>{props.food.description}</td> */}
     <td>{props.food.calories}</td>
     <td>{props.food.date.substring(0, 10)}</td>
     <td>
@@ -80,7 +80,9 @@ export default class foodList extends Component {
             <tr>
               <th scope="col">Username</th>
               <th scope="col">Food</th>
-              <th scope="col">Description</th>
+              {/* <th id="description" scope="col">
+                Description
+              </th> */}
               <th scope="col">Calories</th>
               <th scope="col">Date</th>
               <th scope="col">Actions</th>
@@ -88,6 +90,16 @@ export default class foodList extends Component {
           </thead>
           <tbody>{this.foodList()}</tbody>
         </table>
+        <style>
+          {/* {`
+            @media (max-width:650px) 
+            {
+              th#description{
+                display:none;
+              }
+            }
+          `} */}
+        </style>
       </div>
     );
   }
