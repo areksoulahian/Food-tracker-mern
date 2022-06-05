@@ -3,6 +3,9 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+const port =
+  "https://food-tracker-arek.herokuapp.com" || "http://localhost:5000";
+
 export default class EditFood extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +27,7 @@ export default class EditFood extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/foods/" + this.props.match.params.id)
+      .get(port + "/foods/" + this.props.match.params.id)
       .then((res) => {
         this.setState({
           username: res.data.username,
@@ -38,7 +41,7 @@ export default class EditFood extends Component {
       });
 
     axios
-      .get("http://localhost:5000/users/")
+      .get(port + "/users/")
       .then((res) => {
         if (res.data.length > 0) {
           this.setState({
@@ -86,7 +89,7 @@ export default class EditFood extends Component {
     console.log(food);
 
     axios
-      .post("http://localhost:5000/foods/update" + this.match.params.id, food)
+      .post(port + "/foods/update" + this.match.params.id, food)
       .then((res) => console.log(res.data));
 
     window.location = "/";

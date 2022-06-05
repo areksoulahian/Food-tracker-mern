@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const port =
+  "https://food-tracker-arek.herokuapp.com" || "http://localhost:5000";
+
 export default class CreateUser extends Component {
   constructor(props) {
     super(props);
@@ -28,9 +31,7 @@ export default class CreateUser extends Component {
 
     console.log(user);
 
-    axios
-      .post("http://localhost:5000/users/add", user)
-      .then((res) => console.log(res.data));
+    axios.post(port + "/users/add", user).then((res) => console.log(res.data));
 
     this.setState({
       username: "",

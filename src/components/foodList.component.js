@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+const port =
+  "https://food-tracker-arek.herokuapp.com" || "http://localhost:5000";
+
 const Food = (props) => (
   <tr>
     <td>{props.food.username}</td>
@@ -37,7 +40,7 @@ export default class foodList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/foods/")
+      .get(port + "/foods/")
       .then((response) => {
         this.setState({ foods: response.data });
       })
@@ -48,7 +51,7 @@ export default class foodList extends Component {
 
   deleteFood(id) {
     axios
-      .delete("http://localhost:5000/foods/delete/" + id)
+      .delete(port + "/foods/delete/" + id)
       .then((res) => console.log(res.data));
 
     this.setState({
