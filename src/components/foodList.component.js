@@ -75,7 +75,7 @@ export default class foodList extends Component {
     return (
       <div className="">
         <h3>Food Log</h3>
-        <table className="table table-dark">
+        <table className="table table-dark" responsive="sm">
           <thead className="thead-light">
             <tr>
               <th scope="col">Username</th>
