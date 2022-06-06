@@ -7,7 +7,7 @@ import About from "./components/about.component";
 import CreateFood from "./components/createFood.component";
 import EditFood from "./components/editFood.component";
 import CreateUser from "./components/createUser.component";
-import Footer from "./components/footer.component";
+//import Footer from "./components/footer.component";
 //import Homepage from "./components/homepage.component";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <Route path="/user" element={<CreateUser />} />
         <Route path="/about" element={<About />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
