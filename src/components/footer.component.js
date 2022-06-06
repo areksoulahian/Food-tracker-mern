@@ -11,7 +11,7 @@ export default class Footer extends Component {
         </div>
 
         <style>
-          {/* {`
+          {`
           .footer{
             margin-top: 1rem;
             padding: 1rem;
@@ -21,7 +21,7 @@ export default class Footer extends Component {
             left: 0;
             width: 100%;
             }
-        `} */}
+        `}
         </style>
       </footer>
     );

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class About extends Component {
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid text-center">
         <h1>This is a food tracker log application</h1>
         <p>
           Full-stack MERN application.
