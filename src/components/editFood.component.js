@@ -11,14 +11,14 @@ export default class EditFood extends Component {
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
+    // this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeCalories = this.onChangeCalories.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       username: "",
-      description: "",
+      // description: "",
       calories: 0,
       date: new Date(),
       users: [],
@@ -27,11 +27,11 @@ export default class EditFood extends Component {
 
   componentDidMount() {
     axios
-      .get(port + "/foods/" + this.props.match.params.id)
+      .get(port + "/foods/" + this.props.id)
       .then((res) => {
         this.setState({
           username: res.data.username,
-          description: res.data.description,
+          // description: res.data.description,
           calories: res.data.calories,
           date: new Date(res.data.date),
         });
@@ -58,11 +58,11 @@ export default class EditFood extends Component {
     });
   }
 
-  onChangeDescription(e) {
-    this.setState({
-      description: e.target.value,
-    });
-  }
+  // onChangeDescription(e) {
+  //   this.setState({
+  //     description: e.target.value,
+  //   });
+  // }
 
   onChangeCalories(e) {
     this.setState({
@@ -81,7 +81,7 @@ export default class EditFood extends Component {
 
     const food = {
       username: this.state.username,
-      description: this.state.description,
+      // description: this.state.description,
       calories: this.state.calories,
       date: this.state.date,
     };
@@ -89,7 +89,7 @@ export default class EditFood extends Component {
     console.log(food);
 
     axios
-      .post(port + "/foods/update" + this.match.params.id, food)
+      .post(port + "/foods/update" + this.props.id, food)
       .then((res) => console.log(res.data));
 
     window.location = "/";
@@ -97,7 +97,7 @@ export default class EditFood extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         <h3>Edit Food Log</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
@@ -118,16 +118,6 @@ export default class EditFood extends Component {
               })}
             </select>
           </div>
-          {/* 
-          <div className="form-group">
-            <label>Description: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-            />
-          </div> */}
 
           <div className="form-group">
             <label>Calories: </label>
@@ -138,6 +128,7 @@ export default class EditFood extends Component {
               onChange={this.onChangeCalories}
             />
           </div>
+
           <div className="form-group">
             <label>Date: </label>
             <div>
@@ -148,15 +139,86 @@ export default class EditFood extends Component {
             </div>
           </div>
 
-          <div className="form-group">
-            <input
-              type="submit"
-              value="Edit Food log"
-              className="btn btn-primary"
-            />
+          <div className="form-group d-flex justify-content-end">
+            <button type="submit" className="btn btn-primary mr-2">
+              Edit Food Log
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={this.onCancel}
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>
     );
   }
 }
+
+//   render() {
+//     return (
+//       <div className="container">
+//         <h3>Edit Food Log</h3>
+//         <form onSubmit={this.onSubmit}>
+//           <div className="form-group">
+//             <label>Username: </label>
+//             <select
+//               ref="userInput"
+//               required
+//               className="form-control"
+//               value={this.state.username}
+//               onChange={this.onChangeUsername}
+//             >
+//               {this.state.users.map((user) => {
+//                 return (
+//                   <option key={user} value={user}>
+//                     {user}
+//                   </option>
+//                 );
+//               })}
+//             </select>
+//           </div>
+//           {/*
+//           <div className="form-group">
+//             <label>Description: </label>
+//             <input
+//               type="text"
+//               className="form-control"
+//               value={this.state.description}
+//               onChange={this.onChangeDescription}
+//             />
+//           </div> */}
+
+//           <div className="form-group">
+//             <label>Calories: </label>
+//             <input
+//               type="text"
+//               className="form-control"
+//               value={this.state.calories}
+//               onChange={this.onChangeCalories}
+//             />
+//           </div>
+//           <div className="form-group">
+//             <label>Date: </label>
+//             <div>
+//               <DatePicker
+//                 selected={this.state.date}
+//                 onChange={this.onChangeDate}
+//               />
+//             </div>
+//           </div>
+
+//           <div className="form-group">
+//             <input
+//               type="submit"
+//               value="Edit Food log"
+//               className="btn btn-primary"
+//             />
+//           </div>
+//         </form>
+//       </div>
+//     );
+//   }
+// }

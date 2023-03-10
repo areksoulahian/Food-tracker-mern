@@ -70,37 +70,62 @@ export default class foodList extends Component {
       );
     });
   }
-
   render() {
     return (
-      <div className="">
-        <h3>Food Log</h3>
-        <table className="table table-dark" responsive>
-          <thead className="thead-light">
-            <tr>
-              <th scope="col">Username</th>
-              <th scope="col">Food</th>
-              {/* <th id="description" scope="col">
-                Description
-              </th> */}
-              <th scope="col">Calories</th>
-              <th scope="col">Date</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{this.foodList()}</tbody>
-        </table>
-        <style>
-          {/* {`
-            @media (max-width:650px) 
-            {
-              th#description{
-                display:none;
-              }
-            }
-          `} */}
-        </style>
+      <div className="container">
+        <h3 className="text-center">Food Log</h3>
+        <div className="table-responsive">
+          <table className="table table-dark table-striped">
+            <thead className="thead-light">
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Food</th>
+                <th scope="col" className="d-none d-md-table-cell">
+                  Description
+                </th>
+                <th scope="col">Calories</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>{this.foodList()}</tbody>
+          </table>
+        </div>
       </div>
     );
   }
 }
+
+//   render() {
+//     return (
+//       <div className="container">
+//         <h3 className="text-center">Food Log</h3>
+//         <table className="table table-dark" responsive="sm">
+//           <thead className="thead-light">
+//             <tr>
+//               <th scope="col">Username</th>
+//               <th scope="col">Food</th>
+//               {/* <th id="description" scope="col">
+//                 Description
+//               </th> */}
+//               <th scope="col">Calories</th>
+//               <th scope="col">Date</th>
+//               <th scope="col">Actions</th>
+//             </tr>
+//           </thead>
+//           <tbody>{this.foodList()}</tbody>
+//         </table>
+//         <style>
+//           {/* {`
+//             @media (max-width:650px)
+//             {
+//               th#description{
+//                 display:none;
+//               }
+//             }
+//           `} */}
+//         </style>
+//       </div>
+//     );
+//   }
+// }

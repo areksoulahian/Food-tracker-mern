@@ -40,15 +40,18 @@ export default class CreateUser extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <h3>Create New User</h3>
-        <form onSubmit={this.onSubmit}>
+      <div className="container">
+        <h3 className="text-center">Create New User</h3>
+        <form onSubmit={this.onSubmit} className="col-md-6 offset-md-3">
           <div className="form-group">
-            <label>Username: </label>
+            <label htmlFor="username" className="form-label">
+              Username:
+            </label>
             <input
               type="text"
               required
               className="form-control"
+              id="username"
               value={this.state.username}
               onChange={this.onChangeUsername}
             />
@@ -57,7 +60,7 @@ export default class CreateUser extends Component {
             <input
               type="submit"
               value="Create User"
-              className="btn btn-primary"
+              className="btn btn-primary btn-block"
             />
           </div>
         </form>
@@ -65,3 +68,32 @@ export default class CreateUser extends Component {
     );
   }
 }
+// Needs review
+
+//   render() {
+//     return (
+//       <div className="container">
+//         <h3>Create New User</h3>
+//         <form onSubmit={this.onSubmit}>
+//           <div className="form-group">
+//             <label>Username: </label>
+//             <input
+//               type="text"
+//               required
+//               className="form-control"
+//               value={this.state.username}
+//               onChange={this.onChangeUsername}
+//             />
+//           </div>
+//           <div className="form-group">
+//             <input
+//               type="submit"
+//               value="Create User"
+//               className="btn btn-primary"
+//             />
+//           </div>
+//         </form>
+//       </div>
+//     );
+//   }
+// }
