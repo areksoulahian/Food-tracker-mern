@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const port =
-  "https://food-tracker-arek.herokuapp.com" || "http://localhost:5000";
+  // "https://food-tracker-arek.herokuapp.com" ||
+  "http://localhost:5000";
 
 const Food = (props) => (
   <tr>
@@ -80,9 +81,9 @@ export default class foodList extends Component {
               <tr>
                 <th scope="col">Username</th>
                 <th scope="col">Food</th>
-                <th scope="col" className="d-none d-md-table-cell">
+                {/* <th scope="col" className="d-none d-md-table-cell">
                   Description
-                </th>
+                </th> */}
                 <th scope="col">Calories</th>
                 <th scope="col">Date</th>
                 <th scope="col">Actions</th>

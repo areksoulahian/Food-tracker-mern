@@ -4,7 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const port =
-  "https://food-tracker-arek.herokuapp.com" || "http://localhost:5000";
+  // "https://food-tracker-arek.herokuapp.com" ||
+  "http://localhost:5000";
 
 export default class EditFood extends Component {
   constructor(props) {

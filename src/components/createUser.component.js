@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const port =
-  "https://food-tracker-arek.herokuapp.com" || "http://localhost:5000";
+  // "https://replit.com/@arekso/FoodTracker" ||
+  // "https://food-tracker-arek.herokuapp.com" ||
+  "http://localhost:5000";
 
 export default class CreateUser extends Component {
   constructor(props) {
