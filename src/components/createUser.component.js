@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const port =
-  "https://replit.com/@arekso/FoodTracker" ||
+  // "https://areksoulahian.com/food-tracker" ||
   // "https://food-tracker-arek.herokuapp.com" ||
   "http://localhost:5000";
 

@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const port =
-  "https://replit.com/@arekso/FoodTracker" ||
+  // "https://areksoulahian.com/food-tracker" ||
   // "https://food-tracker-arek.herokuapp.com" ||
   "http://localhost:5000";
 
@@ -13,6 +13,7 @@ export default class EditFood extends Component {
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeFood = this.onChangeFood.bind(this);
     // this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeCalories = this.onChangeCalories.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
@@ -60,6 +61,12 @@ export default class EditFood extends Component {
     });
   }
 
+  onChangeFood(e) {
+    this.setState({
+      foodName: e.target.value,
+    });
+  }
+
   // onChangeDescription(e) {
   //   this.setState({
   //     description: e.target.value,
@@ -91,9 +98,13 @@ export default class EditFood extends Component {
     console.log(food);
 
     axios
-      .post(port + "/foods/update" + this.props.id, food)
+      .post(port + "/foods/update/" + this.props.id, food)
       .then((res) => console.log(res.data));
 
+    window.location = "/";
+  }
+
+  onCancel() {
     window.location = "/";
   }
 
@@ -119,6 +130,16 @@ export default class EditFood extends Component {
                 );
               })}
             </select>
+          </div>
+
+          <div className="form-group">
+            <label>Food </label>
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.foodName}
+              onChange={this.onChangeFood}
+            />
           </div>
 
           <div className="form-group">

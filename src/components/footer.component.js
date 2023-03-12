@@ -9,7 +9,7 @@ export default class Footer extends Component {
         style={{ position: "fixed", bottom: 0, width: "100%" }}
       >
         <div className="container">
-          <span className="text-muted">Arek food tracker project</span>
+          <span className="text-muted">Arek food tracker project 2023</span>
         </div>
       </footer>
     );

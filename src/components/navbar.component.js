@@ -24,7 +24,7 @@ export default class Navbar extends Component {
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
                 <Link to="/foodlist" className="nav-link">
-                  Home
+                  Food List
                 </Link>
               </li>
               <li className="nav-item">
