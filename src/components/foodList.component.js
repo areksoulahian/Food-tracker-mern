@@ -3,10 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const port =
-  "https://areksoulahian.com/food-tracker" ||
-  // "https://food-tracker-arek.herokuapp.com" ||
-  "http://localhost:5000";
+const port = "http://localhost:5000";
 
 const Food = (props) => (
   <tr>
@@ -16,11 +13,11 @@ const Food = (props) => (
     <td>{props.food.calories}</td>
     <td>{props.food.date.substring(0, 10)}</td>
     <td>
-      <Link to={"/edit/" + props.food._id}>Edit</Link> |{" "}
+      <Link to={"/edit/" + props.food.id}>Edit</Link> |{" "}
       <a
         href="#"
         onClick={() => {
-          props.deleteFood(props.food._id);
+          props.deleteFood(props.food.id);
         }}
       >
         Delete
@@ -57,7 +54,7 @@ export default class foodList extends Component {
       .then((res) => console.log(res.data));
 
     this.setState({
-      foods: this.state.foods.filter((el) => el._id !== id),
+      foods: this.state.foods.filter((el) => el.id !== id),
     });
   }
 
@@ -67,7 +64,7 @@ export default class foodList extends Component {
         <Food
           food={currentfood}
           deleteFood={this.deleteFood}
-          key={currentfood._id}
+          key={currentfood.id}
         />
       );
     });
@@ -97,37 +94,3 @@ export default class foodList extends Component {
     );
   }
 }
-
-//   render() {
-//     return (
-//       <div className="container">
-//         <h3 className="text-center">Food Log</h3>
-//         <table className="table table-dark" responsive="sm">
-//           <thead className="thead-light">
-//             <tr>
-//               <th scope="col">Username</th>
-//               <th scope="col">Food</th>
-//               {/* <th id="description" scope="col">
-//                 Description
-//               </th> */}
-//               <th scope="col">Calories</th>
-//               <th scope="col">Date</th>
-//               <th scope="col">Actions</th>
-//             </tr>
-//           </thead>
-//           <tbody>{this.foodList()}</tbody>
-//         </table>
-//         <style>
-//           {/* {`
-//             @media (max-width:650px)
-//             {
-//               th#description{
-//                 display:none;
-//               }
-//             }
-//           `} */}
-//         </style>
-//       </div>
-//     );
-//   }
-// }

@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const port =
-  "https://areksoulahian.com/food-tracker" ||
-  // "https://food-tracker-arek.herokuapp.com" ||
-  "http://localhost:5000";
+const port = "http://localhost:5000";
 
 export default class CreateUser extends Component {
   constructor(props) {
@@ -70,32 +67,3 @@ export default class CreateUser extends Component {
     );
   }
 }
-// Needs review
-
-//   render() {
-//     return (
-//       <div className="container">
-//         <h3>Create New User</h3>
-//         <form onSubmit={this.onSubmit}>
-//           <div className="form-group">
-//             <label>Username: </label>
-//             <input
-//               type="text"
-//               required
-//               className="form-control"
-//               value={this.state.username}
-//               onChange={this.onChangeUsername}
-//             />
-//           </div>
-//           <div className="form-group">
-//             <input
-//               type="submit"
-//               value="Create User"
-//               className="btn btn-primary"
-//             />
-//           </div>
-//         </form>
-//       </div>
-//     );
-//   }
-// }

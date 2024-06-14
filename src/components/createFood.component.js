@@ -3,10 +3,7 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const port =
-  "https://areksoulahian.com/food-tracker" ||
-  // "https://food-tracker-arek.herokuapp.com" ||
-  "http://localhost:5000";
+const port = "http://localhost:5000";
 
 export default class CreateFood extends Component {
   constructor(props) {
@@ -170,79 +167,3 @@ export default class CreateFood extends Component {
     );
   }
 }
-
-// render() {
-//   return (
-//     <div className="container">
-//       <h3>Create New Food</h3>
-//       <form onSubmit={this.onSubmit}>
-//         <div className="form-group">
-//           <label>Username: </label>
-//           <select
-//             ref="this.myRef"
-//             required
-//             className="form-control"
-//             value={this.state.username}
-//             onChange={this.onChangeUsername}
-//           >
-//             {this.state.users.map((user) => {
-//               return (
-//                 <option key={user} value={user}>
-//                   {user}
-//                 </option>
-//               );
-//             })}
-//           </select>
-//         </div>
-
-//         <div className="form-group">
-//           <label>Food Name: </label>
-//           <input
-//             type="text"
-//             className="form-control"
-//             value={this.state.foodName}
-//             onChange={this.onChangeFoodName}
-//           />
-//         </div>
-
-//         {/* <div className="form-group">
-//           <label>Description: </label>
-//           <input
-//             type="text"
-//             className="form-control"
-//             value={this.state.description}
-//             onChange={this.onChangeDescription}
-//           />
-//         </div> */}
-
-//         <div className="form-group">
-//           <label>Calories: </label>
-//           <input
-//             type="text"
-//             className="form-control"
-//             value={this.state.calories}
-//             onChange={this.onChangeCalories}
-//           />
-//         </div>
-//         <div className="form-group">
-//           <label>Date: </label>
-//           <div>
-//             <DatePicker
-//               selected={this.state.date}
-//               onChange={this.onChangeDate}
-//             />
-//           </div>
-//         </div>
-
-//         <div className="form-group">
-//           <input
-//             type="submit"
-//             value="Create Food"
-//             className="btn btn-primary"
-//           />
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
-// }
