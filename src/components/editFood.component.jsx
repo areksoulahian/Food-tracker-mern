@@ -10,6 +10,8 @@ export default function EditFood() {
   const [calories, setCalories] = useState('')
   const [date, setDate] = useState('')
   const [users, setUsers] = useState([])
+  const [submitting, setSubmitting] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch(`/foods/${id}`)
@@ -21,85 +23,80 @@ export default function EditFood() {
         setDate(data.date ? data.date.substring(0, 10) : '')
       })
       .catch((err) => console.error(err))
+      .finally(() => setLoading(false))
 
     fetch('/users/')
       .then((res) => res.json())
       .then((data) => {
-        if (data.length > 0) {
-          setUsers(data.map((u) => u.username))
-        }
+        if (data.length > 0) setUsers(data.map((u) => u.username))
       })
       .catch((err) => console.error(err))
   }, [id])
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    const food = { username, foodName, calories, date: new Date(date) }
-    console.log(food)
+    setSubmitting(true)
     try {
       await fetch(`/foods/update/${id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(food),
+        body: JSON.stringify({ username, foodName, calories, date: new Date(date) }),
       })
+      navigate('/foodlist')
     } catch (err) {
       console.error(err)
+    } finally {
+      setSubmitting(false)
     }
-    navigate('/')
+  }
+
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="card-custom" style={{ maxWidth: 560, margin: '0 auto' }}>
+          <div className="state-message">
+            <div className="state-icon"><span className="spinner" /></div>
+            <p>Loading food entry…</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="container">
-      <h3>Edit Food Log</h3>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label>Username:</label>
-          <select
-            required
-            className="form-control"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          >
-            <option value="">Select a user</option>
-            {users.map((user) => (
-              <option key={user} value={user}>{user}</option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Food:</label>
-          <input
-            type="text"
-            className="form-control"
-            value={foodName}
-            onChange={(e) => setFoodName(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Calories:</label>
-          <input
-            type="text"
-            className="form-control"
-            value={calories}
-            onChange={(e) => setCalories(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Date:</label>
-          <div>
-            <input
-              type="date"
-              className="form-control"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
+      <div className="card-custom" style={{ maxWidth: 560, margin: '0 auto' }}>
+        <h3 className="card-title"><span>✏️</span> Edit Food Log</h3>
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <label>Username</label>
+            <select required className="form-control" value={username} onChange={(e) => setUsername(e.target.value)}>
+              <option value="">Select a user</option>
+              {users.map((user) => (
+                <option key={user} value={user}>{user}</option>
+              ))}
+            </select>
           </div>
-        </div>
-        <div className="form-group d-flex justify-content-end">
-          <button type="submit" className="btn btn-primary mr-2">Edit Food Log</button>
-          <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>Cancel</button>
-        </div>
-      </form>
+          <div className="form-group">
+            <label>Food</label>
+            <input type="text" className="form-control" value={foodName} onChange={(e) => setFoodName(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Calories</label>
+            <input type="text" className="form-control" value={calories} onChange={(e) => setCalories(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Date</label>
+            <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
+          </div>
+          <div className="d-flex gap-2">
+            <button type="submit" className="btn btn-success flex-fill" disabled={submitting}>
+              {submitting ? <><span className="spinner" /> Saving…</> : 'Update Food'}
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={() => navigate('/foodlist')}>Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

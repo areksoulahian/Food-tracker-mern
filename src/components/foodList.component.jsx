@@ -5,31 +5,34 @@ const Food = ({ food, onDelete }) => (
   <tr>
     <td>{food.username}</td>
     <td>{food.foodName}</td>
-    <td>{food.calories}</td>
+    <td><span className="calorie-badge">{food.calories}</span></td>
     <td>{food.date?.substring(0, 10)}</td>
     <td>
-      <Link to={`/edit/${food.id}`}>Edit</Link> |{' '}
-      <a href="#" onClick={(e) => { e.preventDefault(); onDelete(food.id) }}>Delete</a>
+      <Link to={`/edit/${food.id}`} className="action-link edit">Edit</Link>
+      <span className="text-muted mx-1">|</span>
+      <a href="#" className="action-link delete" onClick={(e) => { e.preventDefault(); onDelete(food.id) }}>Delete</a>
     </td>
   </tr>
 )
 
 export default function FoodList() {
   const [foods, setFoods] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const fetchFoods = useCallback(async () => {
+    setLoading(true)
     try {
       const res = await fetch('/foods/')
       const data = await res.json()
       setFoods(data)
     } catch (err) {
       console.error(err)
+    } finally {
+      setLoading(false)
     }
   }, [])
 
-  useEffect(() => {
-    fetchFoods()
-  }, [fetchFoods])
+  useEffect(() => { fetchFoods() }, [fetchFoods])
 
   const deleteFood = async (id) => {
     try {
@@ -42,24 +45,41 @@ export default function FoodList() {
 
   return (
     <div className="container">
-      <h3 className="text-center">Food Log</h3>
-      <div className="table-responsive">
-        <table className="table table-dark table-striped">
-          <thead className="thead-light">
-            <tr>
-              <th scope="col">Username</th>
-              <th scope="col">Food</th>
-              <th scope="col">Calories</th>
-              <th scope="col">Date</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {foods.map((food) => (
-              <Food key={food.id} food={food} onDelete={deleteFood} />
-            ))}
-          </tbody>
-        </table>
+      <div className="card-custom">
+        <h3 className="card-title">
+          <span>📋</span> Food Log
+        </h3>
+        {loading ? (
+          <div className="state-message">
+            <div className="state-icon"><span className="spinner" /></div>
+            <p>Loading food entries…</p>
+          </div>
+        ) : foods.length === 0 ? (
+          <div className="state-message">
+            <div className="state-icon">🍽️</div>
+            <p>No food entries yet.</p>
+            <Link to="/create" className="btn btn-primary mt-3">Add your first food</Link>
+          </div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table-custom">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Food</th>
+                  <th>Calories</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {foods.map((food) => (
+                  <Food key={food.id} food={food} onDelete={deleteFood} />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   )

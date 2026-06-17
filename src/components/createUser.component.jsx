@@ -2,42 +2,50 @@ import React, { useState } from 'react'
 
 export default function CreateUser() {
   const [username, setUsername] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [toast, setToast] = useState(null)
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    const user = { username }
-    console.log(user)
+    setSubmitting(true)
     try {
       await fetch('/users/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user),
+        body: JSON.stringify({ username }),
       })
+      setToast(`User "${username}" created!`)
+      setUsername('')
     } catch (err) {
       console.error(err)
+    } finally {
+      setSubmitting(false)
     }
-    setUsername('')
   }
 
   return (
     <div className="container">
-      <h3 className="text-center">Create New User</h3>
-      <form onSubmit={onSubmit} className="col-md-6 offset-md-3">
-        <div className="form-group">
-          <label htmlFor="username" className="form-label">Username:</label>
-          <input
-            type="text"
-            required
-            className="form-control"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input type="submit" value="Create User" className="btn btn-primary btn-block" />
-        </div>
-      </form>
+      {toast && <div className="toast">{toast}</div>}
+      <div className="card-custom" style={{ maxWidth: 480, margin: '0 auto' }}>
+        <h3 className="card-title"><span>👤</span> Create New User</h3>
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              id="username"
+              placeholder="Enter username (min 3 chars)"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary w-100" disabled={submitting}>
+            {submitting ? <><span className="spinner" /> Creating…</> : 'Create User'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
