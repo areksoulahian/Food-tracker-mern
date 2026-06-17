@@ -1,9 +1,9 @@
 const fs = require("fs").promises;
 const path = require("path");
+const crypto = require("crypto");
 
 const filePath = path.join(__dirname, "../data/foods.json");
 
-// Function to read JSON file
 const readJSONFile = async () => {
   try {
     const data = await fs.readFile(filePath, "utf8");
@@ -11,37 +11,32 @@ const readJSONFile = async () => {
   } catch (error) {
     if (error.code === "ENOENT") {
       return [];
-    } else {
-      throw error;
     }
+    throw error;
   }
 };
 
-// Function to write JSON file
 const writeJSONFile = async (data) => {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 };
 
-// Get all foods
 const getFoods = async () => {
   return await readJSONFile();
 };
 
-// Get food by ID
 const getFoodById = async (id) => {
   const foods = await getFoods();
   return foods.find((food) => food.id === id) || null;
 };
 
-// Create a new food
 const createFood = async (food) => {
   const foods = await getFoods();
-  foods.push(food);
+  const newFood = { ...food, id: crypto.randomUUID() };
+  foods.push(newFood);
   await writeJSONFile(foods);
-  return food;
+  return newFood;
 };
 
-// Update food
 const updateFood = async (id, updatedFood) => {
   const foods = await getFoods();
   const index = foods.findIndex((food) => food.id === id);
@@ -52,7 +47,6 @@ const updateFood = async (id, updatedFood) => {
   return foods[index];
 };
 
-// Delete food
 const deleteFood = async (id) => {
   const foods = await getFoods();
   const filteredFoods = foods.filter((food) => food.id !== id);
