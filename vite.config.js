@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/Food-tracker-mern/',
   build: {
-    outDir: 'build',
+    outDir: 'docs',
   },
   server: {
     proxy: {
