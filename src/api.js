@@ -3,6 +3,8 @@ const KEYS = {
   users: 'ft-users',
 }
 
+const API_BASE = import.meta.env.BASE_URL || '/'
+
 let online = true
 const listeners = new Set()
 const notify = () => listeners.forEach((fn) => fn(online))
@@ -73,8 +75,13 @@ const local = {
 
 // ── backend-or-fallback ──
 
+function apiUrl(path) {
+  const base = API_BASE.endsWith('/') ? API_BASE : API_BASE + '/'
+  return `${base}${path.replace(/^\//, '')}`
+}
+
 async function tryFetch(url, options) {
-  const res = await fetch(url, options)
+  const res = await fetch(apiUrl(url), options)
   if (!res.ok) throw new Error(`${res.status}`)
   return res
 }

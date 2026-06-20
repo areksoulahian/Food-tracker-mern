@@ -9,9 +9,11 @@ import EditFood from "./components/editFood.component";
 import CreateUser from "./components/createUser.component";
 import Footer from "./components/footer.component";
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Navbar />
       <div className="page-wrapper">
         <Routes>

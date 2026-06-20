@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: '/Food-tracker-mern/',
+  base: command === 'build' ? '/Food-tracker-mern/' : '/',
   build: {
     outDir: 'docs',
   },
@@ -13,4 +13,4 @@ export default defineConfig({
       '/users': 'http://localhost:5000',
     },
   },
-})
+}))
