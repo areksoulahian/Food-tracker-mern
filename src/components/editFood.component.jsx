@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { api } from '../api'
 
 export default function EditFood() {
   const { id } = useParams()
@@ -14,34 +15,24 @@ export default function EditFood() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`/foods/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUsername(data.username || '')
-        setFoodName(data.foodName || '')
-        setCalories(data.calories || '')
-        setDate(data.date ? data.date.substring(0, 10) : '')
-      })
-      .catch((err) => console.error(err))
+    api.getFoodById(id).then((data) => {
+      setUsername(data.username || '')
+      setFoodName(data.foodName || '')
+      setCalories(data.calories || '')
+      setDate(data.date ? data.date.substring(0, 10) : '')
+    }).catch((err) => console.error(err))
       .finally(() => setLoading(false))
 
-    fetch('/users/')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.length > 0) setUsers(data.map((u) => u.username))
-      })
-      .catch((err) => console.error(err))
+    api.getUsers().then((data) => {
+      if (data.length > 0) setUsers(data.map((u) => u.username))
+    }).catch((err) => console.error(err))
   }, [id])
 
   const onSubmit = async (e) => {
     e.preventDefault()
     setSubmitting(true)
     try {
-      await fetch(`/foods/update/${id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, foodName, calories, date: new Date(date) }),
-      })
+      await api.updateFood(id, { username, foodName, calories, date: new Date(date) })
       navigate('/foodlist')
     } catch (err) {
       console.error(err)

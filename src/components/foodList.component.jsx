@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import { api } from '../api'
 
 const Food = ({ food, onDelete }) => (
   <tr>
@@ -22,8 +23,7 @@ export default function FoodList() {
   const fetchFoods = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetch('/foods/')
-      const data = await res.json()
+      const data = await api.getFoods()
       setFoods(data)
     } catch (err) {
       console.error(err)
@@ -36,7 +36,7 @@ export default function FoodList() {
 
   const deleteFood = async (id) => {
     try {
-      await fetch(`/foods/${id}`, { method: 'DELETE' })
+      await api.deleteFood(id)
       setFoods((prev) => prev.filter((el) => el.id !== id))
     } catch (err) {
       console.error(err)
@@ -74,7 +74,7 @@ export default function FoodList() {
               </thead>
               <tbody>
                 {foods.map((food) => (
-                  <Food key={food.id} food={food} onDelete={deleteFood} />
+                  <Food key={food.id || food.username + food.foodName} food={food} onDelete={deleteFood} />
                 ))}
               </tbody>
             </table>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { onStatusChange } from '../api'
 
 const links = [
   { to: '/foodlist', label: 'Food Log' },
@@ -10,13 +11,20 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [backendOnline, setBackendOnline] = useState(true)
   const location = useLocation()
+
+  useEffect(() => onStatusChange(setBackendOnline), [])
 
   return (
     <nav className="navbar navbar-expand-md navbar-custom">
       <div className="container">
         <Link to="/" className="navbar-brand text-white" onClick={() => setOpen(false)}>
           <span className="brand-icon">🍽️</span> FoodTracker
+          <span className={`badge ms-2 ${backendOnline ? 'bg-success' : 'bg-warning text-dark'}`}
+                style={{ fontSize: '0.65rem', verticalAlign: 'middle', padding: '3px 8px' }}>
+            {backendOnline ? '🟢 Backend' : '🟡 Local'}
+          </span>
         </Link>
         <button
           className="navbar-toggler"

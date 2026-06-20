@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { api } from '../api'
 
 export default function CreateFood() {
   const navigate = useNavigate()
@@ -12,23 +13,16 @@ export default function CreateFood() {
   const [toast, setToast] = useState(null)
 
   useEffect(() => {
-    fetch('/users/')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.length > 0) setUsers(data.map((u) => u.username))
-      })
-      .catch((err) => console.error(err))
+    api.getUsers().then((data) => {
+      if (data.length > 0) setUsers(data.map((u) => u.username))
+    }).catch((err) => console.error(err))
   }, [])
 
   const onSubmit = async (e) => {
     e.preventDefault()
     setSubmitting(true)
     try {
-      await fetch('/foods/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, foodName, calories, date: new Date(date) }),
-      })
+      await api.createFood({ username, foodName, calories, date: new Date(date) })
       setToast('Food added!')
       setTimeout(() => navigate('/foodlist'), 800)
     } catch (err) {

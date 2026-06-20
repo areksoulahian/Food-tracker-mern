@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { api } from '../api'
 
 export default function CreateUser() {
   const [username, setUsername] = useState('')
@@ -9,11 +10,7 @@ export default function CreateUser() {
     e.preventDefault()
     setSubmitting(true)
     try {
-      await fetch('/users/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username }),
-      })
+      await api.createUser({ username })
       setToast(`User "${username}" created!`)
       setUsername('')
     } catch (err) {
