@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/navbar.component";
 import FoodList from "./components/foodList.component";
@@ -12,6 +12,14 @@ import Footer from "./components/footer.component";
 const basename = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 function App() {
+  if (
+    basename &&
+    window.location.pathname !== basename &&
+    !window.location.pathname.startsWith(basename + "/")
+  ) {
+    return null;
+  }
+
   return (
     <BrowserRouter basename={basename}>
       <Navbar />
@@ -23,6 +31,7 @@ function App() {
           <Route path="/edit/:id" element={<EditFood />} />
           <Route path="/user" element={<CreateUser />} />
           <Route path="/about" element={<About />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
       <Footer />
